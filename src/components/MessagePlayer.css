@@ -4,7 +4,7 @@
     height: 100vh;
     top: 0;
     left: 0;
-    background: url(./images/background/bg.webp);
+    background: url(/images/background/bg.webp);
     display: flex;
     justify-content: center;
     align-items: center;
