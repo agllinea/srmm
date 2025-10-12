@@ -1,10 +1,10 @@
 import { characters } from "@/config/character";
-import { Message, Conversation } from "@/types/message";
+import { Conversation, Message } from "@/types/message";
+import { playSound } from "@/utils/sound";
 import { AnimatePresence, motion } from "framer-motion";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 
 import "./MessagePlayer.css";
-import { playSound } from "@/utils/sound";
 
 export type MessagePlayerProps = {
     conversation?: Conversation;
@@ -69,6 +69,7 @@ const MessagePlayer = forwardRef<MessagePlayerRef, MessagePlayerProps>(({ conver
         if (!conversation) return;
         if (isPlaying) return;
         playSound("start");
+        await new Promise((r) => setTimeout(r, 1000));
         setIsPlaying(true);
         setRendered([]);
 
@@ -104,7 +105,7 @@ const MessagePlayer = forwardRef<MessagePlayerRef, MessagePlayerProps>(({ conver
             } else if (m.text.length < SHORT_MESSAGE_THRESHOLD) {
                 typingDelay = 0; // No typing delay for short messages
             } else {
-                typingDelay = Math.min(5000, Math.max(1000, m.text.length * 100));
+                typingDelay = Math.min(2000, Math.max(800, m.text.length * 100));
             }
             if (typingDelay !== 0) scrollToBottom();
 
